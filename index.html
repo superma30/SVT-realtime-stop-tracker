@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SVT Realtime Stops</title>
+    <link rel="stylesheet" href="style/style.css" />
+</head>
+<body>
+    <header class="app-header">
+        <h1>SVT Realtime Stops</h1>
+        <div class="search-box">
+            <input type="text" id="stopCodeInput" placeholder="Codice (es. E112)" autocomplete="off" autocapitalize="characters">
+            <button id="searchBtn">Cerca</button>
+        </div>
+    </header>
+
+    <main class="grid-container" id="stopsGrid">
+        <!-- Saved floating cards rendered dynamically -->
+    </main>
+
+    <!-- Modal for displaying ASPX content -->
+    <div id="stopModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 id="modalStopTitle">Fermata --</h2>
+                <button id="closeModalBtn" class="close-btn" aria-label="Chiudi">&times;</button>
+            </div>
+            
+            <div class="modal-actions">
+                <button id="editNameModalBtn" class="action-btn edit-btn">Rinomina</button>
+                <button id="toggleSaveModalBtn" class="action-btn">Salva Fermata</button>
+            </div>
+
+            <div class="frame-container" id="frameContainer">
+                <iframe id="aspxFrame" title="ASPX Content"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
