@@ -18,7 +18,7 @@ const frameContainer = document.getElementById('frameContainer');
 
 function getSavedStops() {
     const raw = localStorage.getItem('svt_saved_stops');
-    if (!raw) return [{ code: "E112", name: "" }];
+    if (!raw) return [{ code: "", name: "" }];
 
     try {
         const parsed = JSON.parse(raw);
@@ -27,7 +27,7 @@ function getSavedStops() {
         }
         return parsed;
     } catch {
-        return [{ code: "E112", name: "" }];
+        return [{ code: "", name: "" }];
     }
 }
 
@@ -67,7 +67,7 @@ function handleSearch() {
     if (!code) return;
     openStopModal(code);
     input.value = '';
-    input.blur(); // Hide soft keyboard on mobile
+    input.blur();
 }
 
 function updateModalControls() {
@@ -129,7 +129,7 @@ function handleEditName() {
 function fitIframeToScreen() {
     if (!frameContainer || !frame) return;
     
-    // Original resolution expected from ASPX document
+    // Original resolution of ASPX document
     const nativeWidth = 1222;
     const nativeHeight = 1611;
     
@@ -148,9 +148,8 @@ function openStopModal(code) {
     
     updateModalControls();
     modal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden'; // Lock background scrolling
+    document.body.style.overflow = 'hidden';
     
-    // Calculate scale after DOM paint
     setTimeout(fitIframeToScreen, 50);
     resetRefreshTimer();
 }
@@ -159,7 +158,7 @@ function closeStopModal() {
     modal.classList.add('hidden');
     frame.src = '';
     currentStopCode = null;
-    document.body.style.overflow = ''; // Unlock background scrolling
+    document.body.style.overflow = '';
     if (refreshTimer) clearInterval(refreshTimer);
 }
 
@@ -173,12 +172,10 @@ function resetRefreshTimer() {
     }, REFRESH_INTERVAL_MS);
 }
 
-// Listen for window resize/orientation change to adjust dynamic iframe scale
 window.addEventListener('resize', () => {
     if (currentStopCode) fitIframeToScreen();
 });
 
-// Event Listeners
 searchBtn.addEventListener('click', handleSearch);
 input.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleSearch();
@@ -191,5 +188,4 @@ modal.addEventListener('click', (e) => {
     if (e.target === modal) closeStopModal();
 });
 
-// Initialize
 renderStops();

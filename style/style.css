@@ -11,7 +11,6 @@ body {
     color: #1c1e21;
 }
 
-/* Header & Search Bar */
 .app-header {
     display: flex;
     flex-direction: column;
@@ -35,7 +34,7 @@ body {
 input {
     flex: 1;
     padding: 12px 14px;
-    font-size: 16px; /* Prevents auto-zoom on iOS Safari */
+    font-size: 16px;
     border: 1px solid #cccccc;
     border-radius: 10px;
     outline: none;
@@ -55,7 +54,7 @@ button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    min-height: 44px; /* Mobile minimum touch target size */
+    min-height: 44px;
     transition: background-color 0.2s ease, opacity 0.1s ease;
 }
 
@@ -63,7 +62,6 @@ button:active {
     opacity: 0.8;
 }
 
-/* Dynamic Grid */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -109,7 +107,6 @@ button:active {
     font-weight: 600;
 }
 
-/* Fullscreen Bottom Sheet / Mobile Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -118,7 +115,7 @@ button:active {
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
-    align-items: flex-end; /* Slides up like native app modal on mobile */
+    align-items: flex-end;
     justify-content: center;
     z-index: 1000;
     backdrop-filter: blur(3px);
@@ -147,7 +144,7 @@ button:active {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 12px; /* Adds space so text never touches the close button */
+    gap: 12px;
     width: 100%;
 }
 
@@ -157,8 +154,8 @@ button:active {
     font-weight: 700;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Gracefully truncates long stop names with '...' */
-    min-width: 0; /* Prevents text from expanding and crushing flex siblings */
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 .modal-actions {
@@ -192,19 +189,18 @@ button:active {
     border-radius: 50%;
     width: 36px;
     height: 36px;
-    min-width: 36px; /* Locks width regardless of header content */
-    min-height: 36px; /* Locks height */
+    min-width: 36px;
+    min-height: 36px;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    flex-shrink: 0; /* Prevents flex box from shrinking the button */
+    flex-shrink: 0;
     border: none;
     cursor: pointer;
 }
 
-/* Dynamic Scaled Frame Container */
 .frame-container {
     width: 100%;
     overflow: hidden;
@@ -219,7 +215,6 @@ button:active {
     transform-origin: 0 0;
 }
 
-/* Tablet & Desktop Adjustments */
 @media (min-width: 600px) {
     .app-header {
         flex-direction: row;
@@ -236,7 +231,7 @@ button:active {
     }
 
     .modal-overlay {
-        align-items: center; /* Center modal on larger screens */
+        align-items: center;
     }
 
     .modal-card {
