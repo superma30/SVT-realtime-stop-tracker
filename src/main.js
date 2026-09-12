@@ -145,6 +145,7 @@ function fitIframeToScreen() {
     const nativeHeight = 1611;
     
     const containerWidth = frameContainer.clientWidth;
+    if (containerWidth === 0) return;
     const scale = containerWidth / nativeWidth;
     
     frame.style.width = `${nativeWidth}px`;
