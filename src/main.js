@@ -3,7 +3,10 @@ const BASE_URL = "https://dms.gds.com/SVT/SVT_1200_1600.aspx";
 
 let currentStopCode = null;
 let refreshTimer = null;
+let startY = 0;
+let isSwiping = false;
 
+//#region Elements
 const input = document.getElementById('stopCodeInput');
 const searchBtn = document.getElementById('searchBtn');
 const stopsGrid = document.getElementById('stopsGrid');
@@ -15,6 +18,7 @@ const toggleSaveModalBtn = document.getElementById('toggleSaveModalBtn');
 const editNameModalBtn = document.getElementById('editNameModalBtn');
 const frame = document.getElementById('aspxFrame');
 const frameContainer = document.getElementById('frameContainer');
+//#endregion
 
 function getSavedStops() {
     const raw = localStorage.getItem('svt_saved_stops');
@@ -160,6 +164,13 @@ function closeStopModal() {
     currentStopCode = null;
     document.body.style.overflow = '';
     if (refreshTimer) clearInterval(refreshTimer);
+    // Awaits for the animation to end
+    setTimeout(() => {
+        if (modal.classList.contains('hidden')) {
+            frame.src = '';
+            currentStopCode = null;
+        }
+    }, 300);
 }
 
 function resetRefreshTimer() {
@@ -172,6 +183,7 @@ function resetRefreshTimer() {
     }, REFRESH_INTERVAL_MS);
 }
 
+//#region Event Listeners
 window.addEventListener('resize', () => {
     if (currentStopCode) fitIframeToScreen();
 });
@@ -188,4 +200,31 @@ modal.addEventListener('click', (e) => {
     if (e.target === modal) closeStopModal();
 });
 
+modal.addEventListener('touchstart', (e) => {
+    // Only track touch if starting outside modal-card
+    if (e.target === modal) {
+        startY = e.touches[0].clientY;
+        isSwiping = true;
+    }
+}, { passive: true });
+
+modal.addEventListener('touchend', (e) => {
+    if (!isSwiping) return;
+    
+    const endY = e.changedTouches[0].clientY;
+    const deltaY = endY - startY;
+
+    // Trigger close if dragged by more than 30px
+    if (deltaY > 30) {
+        closeStopModal();
+    }
+    
+    isSwiping = false;
+});
+
+modal.addEventListener('touchcancel', () => {
+    isSwiping = false;
+});
+
 renderStops();
+//#endregion

@@ -83,7 +83,7 @@ button:active {
 }
 
 .stop-card:active {
-    transform: scale(0.98);
+    transform: scale(0.97);
 }
 
 .card-content {
@@ -119,10 +119,17 @@ button:active {
     justify-content: center;
     z-index: 1000;
     backdrop-filter: blur(3px);
+    
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal-overlay.hidden {
-    display: none;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .modal-card {
@@ -138,6 +145,13 @@ button:active {
     max-width: 500px;
     max-height: 92vh;
     overflow-y: auto;
+
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.hidden .modal-card {
+    transform: translateY(100%);
 }
 
 .modal-header {
