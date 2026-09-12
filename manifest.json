@@ -1,0 +1,20 @@
+{
+  "name": "SVT Realtime Stops",
+  "short_name": "SVT Stops",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "icons/icon-SVT-realtime-stops-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-SVT-realtime-stops-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

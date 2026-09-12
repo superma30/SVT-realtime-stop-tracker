@@ -233,4 +233,37 @@ modal.addEventListener('touchcancel', () => {
 });
 //#endregion
 
+
+let deferredPrompt;
+  const installBtn = document.getElementById('install-btn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent default browser banner
+    e.preventDefault();
+    deferredPrompt = e;
+    // Show your custom download button
+    installBtn.style.display = 'block';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    // Trigger browser install dialog
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      console.log('App installed successfully');
+    }
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  });
+
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch((err) => {
+      console.error('ServiceWorker registration failed: ', err);
+    });
+  });
+}
+
 renderStops();
