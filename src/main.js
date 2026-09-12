@@ -167,8 +167,6 @@ function openStopModal(code) {
 
 function closeStopModal() {
     modal.classList.add('hidden');
-    frame.src = '';
-    currentStopCode = null;
     document.body.style.overflow = '';
     if (refreshTimer) clearInterval(refreshTimer);
     // Awaits for the animation to end
