@@ -70,6 +70,22 @@ button:active {
     margin: 0 auto;
 }
 
+.saved-empty-text{
+    color: #65676b;
+    font-size: 18px;
+    text-align: center;
+}
+
+.saved-empty-text.hidden {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+
 .stop-card {
     background: #ffffff;
     border-radius: 14px;

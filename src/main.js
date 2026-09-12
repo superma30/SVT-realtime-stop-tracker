@@ -11,6 +11,7 @@ const input = document.getElementById('stopCodeInput');
 const searchBtn = document.getElementById('searchBtn');
 const stopsGrid = document.getElementById('stopsGrid');
 
+const noSavedText = document.getElementById('no-stops-saved');
 const modal = document.getElementById('stopModal');
 const modalStopTitle = document.getElementById('modalStopTitle');
 const closeModalBtn = document.getElementById('closeModalBtn');
@@ -22,7 +23,7 @@ const frameContainer = document.getElementById('frameContainer');
 
 function getSavedStops() {
     const raw = localStorage.getItem('svt_saved_stops');
-    if (!raw) return [{ code: "", name: "" }];
+    if (!raw) return [];
 
     try {
         const parsed = JSON.parse(raw);
@@ -31,7 +32,7 @@ function getSavedStops() {
         }
         return parsed;
     } catch {
-        return [{ code: "", name: "" }];
+        return [];
     }
 }
 
@@ -43,27 +44,33 @@ function renderStops() {
     const stops = getSavedStops();
     stopsGrid.innerHTML = '';
 
-    stops.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'stop-card';
-        card.onclick = () => openStopModal(item.code);
+    if (stops.length == 0) {
+        noSavedText.classList.remove('hidden');
+    }
+    else {
+        noSavedText.classList.add('hidden');
+        stops.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'stop-card';
+            card.onclick = () => openStopModal(item.code);
 
-        const cardContent = document.createElement('div');
-        cardContent.className = 'card-content';
+            const cardContent = document.createElement('div');
+            cardContent.className = 'card-content';
 
-        const title = document.createElement('span');
-        title.className = 'card-title';
-        title.textContent = item.name.trim() ? item.name : item.code;
+            const title = document.createElement('span');
+            title.className = 'card-title';
+            title.textContent = item.name.trim() ? item.name : item.code;
 
-        const codeSubtitle = document.createElement('span');
-        codeSubtitle.className = 'card-subtitle';
-        codeSubtitle.textContent = item.code;
+            const codeSubtitle = document.createElement('span');
+            codeSubtitle.className = 'card-subtitle';
+            codeSubtitle.textContent = item.code;
 
-        cardContent.appendChild(title);
-        cardContent.appendChild(codeSubtitle);
-        card.appendChild(cardContent);
-        stopsGrid.appendChild(card);
-    });
+            cardContent.appendChild(title);
+            cardContent.appendChild(codeSubtitle);
+            card.appendChild(cardContent);
+            stopsGrid.appendChild(card);
+        });
+    }
 }
 
 function handleSearch() {
@@ -225,6 +232,6 @@ modal.addEventListener('touchend', (e) => {
 modal.addEventListener('touchcancel', () => {
     isSwiping = false;
 });
+//#endregion
 
 renderStops();
-//#endregion
